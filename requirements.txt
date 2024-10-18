@@ -1,0 +1,11 @@
+Flask
+werkzeug
+roboflow
+supervision
+inference-sdk
+pandas
+joblib
+Pillow
+opencv-python
+scikit-learn
+inference-sdk

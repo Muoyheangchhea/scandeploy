@@ -1,0 +1,381 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <title>Skin Apsor</title>
+    <style>
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #cff0fe;
+        }
+
+        /* Header styling */
+        header {
+                background-color: #ffffff;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                position: fixed;
+                top: 0;
+                z-index: 1000;
+                height: 68px;
+                margin-right: 20px;
+            }
+
+        .logo {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .logo-image {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .navigation a,
+        .btnLogin-popup {
+            text-decoration: none;
+            margin-left: 25px;
+            color: #007bff;
+            font-weight: 200;
+            margin-right: 25px;
+        }
+
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Sidebar styles */
+        .side-bar {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .side-bar h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .side-bar a {
+            text-decoration: none;
+            font-size: 18px;
+            margin: 10px 0;
+            color: #000;
+        }
+
+        .close-icon {
+            align-self: flex-end;
+        }
+        @media (max-width: 768px) {
+            .hideOnMobile {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .review-content {
+            margin-top: 170px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            max-width: 100%;
+            width: 320px;
+            height: auto;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background-color: #4f7da4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .predictions-container, .recommendations-container {
+            text-align: left;
+            margin: 20px;
+        }
+
+        .recommendations-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .recommendation-item {
+            border: 1px solid #ddd;
+            padding: 5px 5px;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .recommendation-item h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .recommendation-item p {
+            margin: 20px;
+        }
+
+        .recommendation-item img {
+            width: 300px;
+            height: 300px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .recommendation-item div {
+            flex: 1;
+        }
+
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .review-content {
+                margin-top: 100px;
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .recommendation-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .recommendation-item img {
+                width: 100%;
+                height: auto;
+            }
+
+            .recommendation-item div {
+                margin-top: 10px;
+            }
+
+            .navigation-buttons .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            header {
+                text-align: center;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .menu-icon {
+                margin-left: auto;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .recommendation-item {
+                padding: 10px;
+            }
+
+            .recommendation-item img {
+                width: 100%;
+                height: auto;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navigation-buttons .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body class="scan-container">
+    <header>
+        <h2 class="logo">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Skin Apsor Logo" class="logo-image">
+                <span class="logo-text">Skin Apsor</span>
+            </div>
+        </h2>
+        <nav class="navigation">
+            <a class="hideOnMobile" href="/">Home</a>
+            <a class="hideOnMobile" href="/scan">Scanning</a>
+            <a class="hideOnMobile" href="/allproduct">Products</a>
+            <a class="hideOnMobile" href="/contact">About Us</a>
+            <a href="#" class="menu-icon" onclick="showSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#000000">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </a>
+        </nav>
+
+        <nav class="side-bar">
+            <a href="#" class="close-icon" onclick="hideSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg>
+            </a>
+            <h2> Skin Apsor</h2>
+            <a href="/">Home</a>
+            <a href="/scan">Scanning</a>
+            <a href="/allproduct">Products</a>
+            <a href="/contact">About Us</a>
+        </nav>
+
+        <script>
+            function showSidebar() {
+                const sidebar = document.querySelector('.side-bar');
+                sidebar.style.display = 'flex';
+            }
+
+            function hideSidebar() {
+                const sidebar = document.querySelector('.side-bar');
+                sidebar.style.display = 'none';
+            }
+        </script>
+    </header>
+
+    <main>
+        <section class="review-section">
+            <div class="review-content">
+                <h1>Analysis</h1>
+                <p>This is your skin problems analyzed by our machine learning model based on survey data.</p>
+                
+                <!-- Display the annotated image -->
+                <img src="{{ annotated_image }}" alt="Annotated Image" id="capturedPhoto" />
+    
+                <h2>Result</h2>
+    
+                <!-- Display predictions -->
+                <div class="predictions-container">
+                    <h2 class="condition-title">Predictions:</h2>
+                    {% if classes %}
+                        <ul>
+                            {% for class in classes %}
+                                <li>{{ class }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No predictions available.</p>
+                    {% endif %}
+                </div>
+    
+                <!-- Display recommendations -->
+                <div class="recommendations-container">
+                    <h2 class="condition-title">Recommendations:</h2>
+                    {% if recommendations %}
+                        <ul>
+                            {% for recommendation in recommendations %}
+                                <li>
+                                    <h3>{{ recommendation[0] }}:</h3> <!-- Category (e.g., Normal, Oily) -->
+                                    <ul>
+                                        {% for product in recommendation[1] %}
+                                            <li class="recommendation-item">
+                                                <img src="{{ url_for('static', filename=product['Img']) }}" alt="{{ product['Name'] }} Image">
+                                                <div>
+                                                    <p><strong>Name:</strong> {{ product.Name }}</p>
+                                                    <p><strong>Brand:</strong> {{ product.Brand }}</p>
+                                                    <p><strong>Price:</strong> {{ product.Price }} $</p>
+                                                    <p><strong>Rank:</strong>  {{ product.Rank }}/5 <!-- Example Rank --></p>
+                                                    <p><strong>Ingredients:</strong> {{ product.Ingredients }}</p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No recommendations available.</p>
+                    {% endif %}
+                </div>
+    
+                <div class="navigation-buttons">
+                    <a href="/camera" class="btn go-back-btn">Go Back</a>
+                    <a href="/allproduct" class="btn go-back-btn">Next</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Skin Apsor. All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

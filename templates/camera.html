@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Apsor - Capture Photo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body{
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* body {
+            height: 40%;
+            width: 60%;
+            padding-left: 450px;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        } */
+
+        .scan-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        span{
+            font-size: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Video Section */
+        .video-container {
+            width: 100%;
+            height: 60%;
+            flex: 1;
+            position: relative;
+            background-color: #000;
+        }
+
+        video, canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .instruction {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+            z-index: 5;
+        }
+
+        .face-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 350px;
+            pointer-events: none;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .btn {
+            flex: 1;
+            max-width: 200px;
+            padding: 12px;
+            background-color: #4f7da4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 1000;
+            display: none; /* Initially hidden */
+        }
+
+        .loading-overlay .spinner {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body class="scan-container" align="center">
+    
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Skin Apsor Logo">
+            <span>
+                <strong>Skin Apsor</strong>
+            </span>
+        </div>
+    </header>
+
+    <!-- Video and Overlay Section -->
+    <div class="video-container">
+        <div class="instruction">Center your face here:</div>
+
+        <video id="video" autoplay playsinline></video>
+
+        <canvas id="canvas" class="hidden"></canvas>
+
+        <svg class="face-overlay" id="overlay" viewBox="0 0 100 100">
+            <!-- Overlay SVG content -->
+        </svg>
+    </div>
+
+    <!-- Button Section -->
+    <div class="btn-container">
+        <button id="takePhoto" class="btn">Take Photo</button>
+        <button id="retakePhoto" class="btn hidden">Retake</button>
+        <button id="confirmPhoto" class="btn hidden">Confirm</button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <i class="fas fa-spinner fa-spin spinner"></i>
+        <span>Analyzing, please wait...</span>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const overlay = document.getElementById('overlay');
+        const takePhotoBtn = document.getElementById('takePhoto');
+        const confirmPhotoBtn = document.getElementById('confirmPhoto');
+        const retakePhotoBtn = document.getElementById('retakePhoto');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const context = canvas.getContext('2d');
+
+        // Function to adjust video and canvas to fit phone width
+        function adjustCanvasSize() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // Ensure video and canvas use full width and adjust height to maintain aspect ratio
+            video.width = screenWidth;
+            video.height = screenHeight;
+            canvas.width = screenWidth;
+            canvas.height = screenHeight;
+        }
+
+        // Start video stream without mirroring
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+            .then(stream => {
+                video.srcObject = stream;
+                adjustCanvasSize();  // Adjust the canvas to fit screen size
+            })
+            .catch(err => {
+                alert('Unable to access camera: ' + err.message);
+            });
+
+        // Take Photo
+        takePhotoBtn.addEventListener('click', () => {
+            // Set canvas width and height to match phone screen dimensions
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Draw the current video frame on the canvas without flipping
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Hide the video and overlay, show the canvas
+            video.classList.add('hidden');
+            overlay.classList.add('hidden');
+            canvas.classList.remove('hidden');
+
+            // Switch button visibility
+            takePhotoBtn.classList.add('hidden');
+            confirmPhotoBtn.classList.remove('hidden');
+            retakePhotoBtn.classList.remove('hidden');
+        });
+
+        // Retake Photo
+        retakePhotoBtn.addEventListener('click', () => {
+            video.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            canvas.classList.add('hidden');
+
+            takePhotoBtn.classList.remove('hidden');
+            confirmPhotoBtn.classList.add('hidden');
+            retakePhotoBtn.classList.add('hidden');
+        });
+
+        // Confirm Photo
+        confirmPhotoBtn.addEventListener('click', async () => {
+            const imageData = canvas.toDataURL('image/jpeg');  // Capture image as base64
+
+            // Show loading overlay
+            loadingOverlay.style.display = 'flex';
+
+            // Send the image data to the backend for analysis
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image: imageData })
+            });
+
+            const result = await response.json();
+
+            // Hide loading overlay
+            loadingOverlay.style.display = 'none';
+
+            // Redirect to analysis page with the prediction data
+            if (response.status === 200) {
+                window.location.href = `/analysis?classes=${JSON.stringify(result.classes)}&recommendations=${JSON.stringify(result.recommendations)}&annotated_image=${result.annotated_image}`;
+            } else {
+                console.error('Error in prediction', result);
+            }
+        });
+
+        // Adjust the canvas when the screen is resized
+        window.addEventListener('resize', adjustCanvasSize);
+    </script>
+</body>
+
+</html>

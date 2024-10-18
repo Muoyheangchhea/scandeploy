@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Corrected meta tag -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Skin Apsor</title>
+</head>
+
+<body class="scan-container">
+    <header>
+        <h2 class="logo">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Skin Apsor Logo" class="logo-image">
+                <span class="logo-text">Skin Apsor</span>
+            </div>
+        </h2>
+        <nav class="navigation">
+            <!-- Navigation links (hidden on mobile) -->
+            <a class="hideOnMobile" href="/">Home</a>
+            <a class="hideOnMobile" href="/scan">Scanning</a>
+            <a class="hideOnMobile" href="/allproduct">Products</a>
+            <a class="hideOnMobile" href="/contact">About Us</a>
+            <!-- Menu Icon (SVG for mobile menu toggle) -->
+            <a href="#" class="menu-icon" onclick="showSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#000000">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                </svg>
+            </a>
+        </nav>
+        
+        <script>
+            function showSidebar() {
+                const sidebar = document.querySelector('.side-bar');
+                if (sidebar) {
+                    sidebar.style.display = 'flex';
+                }
+            }
+
+            function hideSidebar() {
+                const sidebar = document.querySelector('.side-bar');
+                if (sidebar) {
+                    sidebar.style.display = 'none';
+                }
+            }
+
+
+        </script>
+
+        <nav class="side-bar">
+            <a href="#" class="close-icon" onclick="hideSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </a>
+            <h2> Skin Apsor</h2>
+            <a href="/">Home</a>
+            <a href="/scan">Scanning</a>
+        
+            <a href="/allproduct">Products</a>
+            
+            <a href="/contact">About Us</a>
+
+        </nav>
+        
+    </header>
+
+    <style>
+        /* Resetting default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #cff0fe;
+        }
+
+        /* Header styling */
+        header {
+                background-color: #ffffff;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                position: fixed;
+                top: 0;
+                z-index: 1000;
+                height: 68px;
+                margin-right: 20px;
+            }
+
+        .logo {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .logo-image {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .navigation a,
+        .btnLogin-popup {
+            text-decoration: none;
+            margin-left: 25px;
+            color: #007bff;
+            font-weight: 200;
+            margin-right: 25px;
+        }
+
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Sidebar styles */
+        .side-bar {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .side-bar h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .side-bar a {
+            text-decoration: none;
+            font-size: 18px;
+            margin: 10px 0;
+            color: #000;
+        }
+
+        .close-icon {
+            align-self: flex-end;
+        }
+            
+        /* Team Section Styles */
+        .team-section {
+            margin-top: 100px;
+            background-color: #ffffff;
+            padding: 5rem 1rem;
+        }
+
+        .team-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            color: #1F2937;
+        }
+
+        .team-description {
+            font-size: 1.125rem;
+            color: #4B5563;
+            max-width: 600px;
+            text-align: center;
+            margin: 0 auto 4rem auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .team-member {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-member img {
+            height: 9rem;
+            width: 9rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .team-member h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .role {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #3B82F6;
+        }
+        .footer {
+            background-color: aliceblue;
+        }
+        @media (max-width: 768px) {
+            .hideOnMobile {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+
+    </style>
+
+    <main>
+        <section id="team" class="team-section">
+            <h2 class="team-title">Meet Our Team</h2>
+            <p class="team-description">Our dedicated team is the heart of our project, each bringing their unique flair to ensure your experience is nothing short of delightful.</p>
+            <ul class="team-grid">
+                <li class="team-member">
+                    <img src="https://i.pinimg.com/564x/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg" alt="Sok Chanmonineath">
+                    <h3>Sok Chanmonineath</h3>
+                    <p class="role">Co-Founder</p>
+                </li>
+        
+                <li class="team-member">
+                    <img src="https://i.pinimg.com/564x/43/cc/94/43cc948fbad9cd318f960a4a3b350345.jpg" alt="Van Meysorng">
+                    <h3>Van Meysorng</h3>
+                    <p class="role">Co-Founder</p>
+                </li>
+        
+                <li class="team-member">
+                    <img src="https://i.pinimg.com/736x/e5/dc/f0/e5dcf0c1ed265ee9f47a5d3a2f06d16e.jpg" alt="Kheng Vatanautdom">
+                    <h3>Kheng Vatanautdom</h3>
+                    <p class="role">Co-Founder</p>
+                </li>
+        
+                <li class="team-member">
+                    <img src="https://i.pinimg.com/736x/1f/e4/eb/1fe4eb871e358481a674f7b29847fd4c.jpg" alt="Chhea Muoyheang">
+                    <h3>Chhea Muoyheang</h3>
+                    <p class="role">Co-Founder</p>
+                </li>
+            </ul>
+        </section>
+        
+    </main>
+
+   
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- SD Automation Training and Service Section -->
+                <div>
+                    <h2>Skin Apsor</h2>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/scan">Scan</a></li>
+                        
+                        <li><a href="/allproduct">Products</a></li>
+                       
+                        <li><a href="/contact">About Us</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Contacts Section -->
+                <div>
+                    <h2>Contacts</h2>
+                    <ul>
+                        <li><a href="https://web.facebook.com/profile.php?id=61565501011073" target="_blank">Facebook</a></li>
+
+                        <li><a href="#" >Instagram</a></li>
+                        <li><a href="#" >TikTok</a></li>
+                        <li><a href="#" >Telegram</a></li>
+                        <li><a href="mailto:skinapsor@gmail.com">Gmail</a></li>
+                    </ul>
+                </div>
+    
+
+                <!-- Legal Section -->
+                <div>    
+                    <h2>Legal</h2>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Licensing</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Location Section -->
+                <div>
+                    <h2>Location</h2>
+                    <p><a href="https://maps.app.goo.gl/9H9dvjGbY6h1DTdW9" target="_blank">AUPP, Phnom Penh, Cambodia</a></p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <hr class="footer-divider">
+
+            <!-- Footer Bottom Section -->
+            <div class="footer-bottom">
+                <p>© 2024 Skin Apsor™. All Rights Reserved.</p>
+                <div class="footer-socials">
+                    <!-- Icons: Add SVG icons for social links (omitted here for brevity) -->
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

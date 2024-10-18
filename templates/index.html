@@ -1,0 +1,592 @@
+_<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Apsor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <!-- Swiper CSS -->
+     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;         
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            width: 97%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .navigation a, .btnLogin-popup {
+            text-decoration: none;
+            margin-left: 15px;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .menu-icon {
+            display: none;
+        }
+
+        .side-bar {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .side-bar h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .side-bar a {
+            text-decoration: none;
+            font-size: 18px;
+            margin: 10px 0;
+            color: #000;
+        }
+
+        .close-icon {
+            align-self: flex-end;
+        }
+
+       
+        
+        
+        .hero {
+            background-size: cover;
+            background-position: center;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Content Box for Hero Section */
+        .content-box {
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .content-box h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .content-box p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            
+            margin-bottom: 100px;
+            margin-top: 100px;
+
+
+        }
+        
+        .search-bar input {
+            width: 70%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .search-bar button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        /* Button */
+        .scan-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .scan-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        
+        .promotion {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .promotion img {
+            width: 80%;
+            max-width: 400px;
+            
+        }
+
+        .brands {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .brand-logo img {
+            max-height: 50px;
+            object-fit: contain;
+        }
+        
+        /* Best Product Section */
+        .best-product {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .best-product h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .product-card {
+            display: inline-block;
+         
+            padding: 20px;
+            border-radius: 10px;
+           
+            width: 300px;
+            text-align: center;
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+        }
+        
+        footer {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-container a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .footer-divider {
+            border: 1px solid #444;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hideOnMobile {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+                cursor: pointer;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+
+    /* Swiper container styling */
+.swiper {
+    width: 100%;
+    height: 400px; /* Set a specific height for the swiper container */
+    padding: 5px;
+}
+
+/* Swiper slide styling */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure the slide takes up the full height of the container */
+    margin: 0 5px; /* Adjust margin between slides */
+}
+
+/* Card styling within the slides */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Reduce padding inside card */
+    text-align: center;
+    height: 100%; /* Card should take up the full height of the slide */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image styling */
+.card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure the image fits within the card without stretching */
+    border-radius: 8px;
+    margin: 10px 0; /* Decrease margin around image */
+}
+        
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Skin Apsor Logo" class="logo-image">
+            <span class="logo-text">Skin Apsor</span>
+        </div>
+
+        <nav class="navigation">
+            <a class="hideOnMobile" href="/">Home</a>
+            <a class="hideOnMobile" href="/scan">Scanning</a>
+            <a class="hideOnMobile" href="/allproduct">Products</a>
+            <a class="hideOnMobile" href="/contact">About Us</a>
+
+            <a href="#" class="menu-icon" onclick="showSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#000000">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </a>
+        </nav>
+
+        <nav class="side-bar">
+            <a href="#" class="close-icon" onclick="hideSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg>
+            </a>
+            <h2>Skin Apsor</h2>
+            <a href="/">Home</a>
+            <a href="/scan">Scanning</a>
+            <a href="/allproduct">Products</a>
+            <a href="/contact">About Us</a>
+        </nav>
+    </header>
+
+    <div class="hero" style="background-image: url('{{ url_for('static', filename='img/home.jpg') }}')">
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products...">
+            <button type="submit">Search</button>
+        </div>
+    
+        <div class="content-box">
+            <h1>Skin Apsor: Discover Your Perfect Skincare Routine</h1>
+            <p>At Skin Apsor, we offer personalized skincare recommendations through our advanced scanning tool, guiding you to the right products for radiant, healthy skin.</p>
+            <p>Unlock radiant skin with Skin Apsor. Our tailored solutions address your unique concerns, promoting a healthy, glowing complexion.</p>
+            <a href="/scan">
+                <button class="scan-btn">Scan Now!</button>
+            </a>
+        </div>
+    </div>
+    
+    <section class="promotion">
+        <div><h2>PROMOTION</h2></div>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/promotion.jpg') }}" alt="Image 1" />
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/originals/cb/6c/ce/cb6cce4de67921ed1f5ecc571b7587a7.jpg" alt="Image 2" />
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-maximalist-skin-care-produc-instagram-design-template-366b3692fdccb17cdf4cb6f5052ba08d_screen.jpg?ts=1716609692" alt="Image 3" />
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/skincare-promotion-instagram-post-design-template-188cd3ccc30368fdd4566ea446299841_screen.jpg?ts=1709708509" alt="Image 4" />
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination and navigation buttons -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div> <!-- Right arrow -->
+            <div class="swiper-button-prev"></div> <!-- Left arrow -->
+        </div>
+    
+        <!-- Swiper JS -->
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper('.mySwiper', {
+              slidesPerView: 1, // Default to 1 slide for small screens
+              spaceBetween: 20,
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              breakpoints: {
+                640: {
+                  slidesPerView: 2, // Show 2 slides on screen widths >= 640px
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3, // Show 3 slides on screen widths >= 768px
+                  spaceBetween: 30,
+                },
+                1024: {
+                  slidesPerView: 4, // Show 4 slides on screen widths >= 1024px
+                  spaceBetween: 40,
+                },
+              },
+            });
+        </script>
+    </section>
+    
+    
+
+
+    <section class="brands">
+        <div class="brand-logo">
+            <img src="{{ url_for('static', filename='img/ordi.png') }}" alt="The Ordinary">
+        </div>
+        <div class="brand-logo">
+            <img src="{{ url_for('static', filename='img/style-korean.jpg') }}" alt="Style Korean">
+        </div>
+    </section>
+
+
+<!-- Best Product Section -->
+    <section class="best-product">
+        <div><h2>Best Product</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="{{ url_for('static', filename='img/product.jpg') }}" alt="Best Product" />
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="https://nutroone.com/wp-content/uploads/2019/03/the-ordinary-niacinamide-10-zinc-1.jpg" alt="Image 2" />
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="https://coreelle.com/cdn/shop/files/elizaveccamilky-piggy-carbonated-bubble-clay-mask-100g-692499_medium.png?v=1717499516" alt="Elizavecca Milky Piggy Carbonated Bubble Clay Mask" />
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="https://sokoskins.shop/cdn/shop/products/35681406cef27e969481f2bf3750692c_1024x1024@2x.jpg?v=1713086330" alt="Heimish All Clean Balm" alt="Image 4" />
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination and navigation buttons -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div> <!-- Right arrow -->
+            <div class="swiper-button-prev"></div> <!-- Left arrow -->
+        </div>
+    
+        <!-- Swiper JS -->
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper('.mySwiper', {
+              slidesPerView: 1, // Default to 1 slide for small screens
+              spaceBetween: 20,
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              breakpoints: {
+                640: {
+                  slidesPerView: 2, // Show 2 slides on screen widths >= 640px
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3, // Show 3 slides on screen widths >= 768px
+                  spaceBetween: 30,
+                },
+                1024: {
+                  slidesPerView: 4, // Show 4 slides on screen widths >= 1024px
+                  spaceBetween: 40,
+                },
+              },
+            });
+        </script>
+    </section>
+    
+
+    
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <h2>Skin Apsor</h2>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/scan">Scan</a></li>
+                        <li><a href="/allproduct">Products</a></li>
+                        <li><a href="/contact">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2>Contacts</h2>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">TikTok</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="mailto:skinapsor@gmail.com">Gmail</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2>Legal</h2>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Licensing</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2>Location</h2>
+                    <p><a href="#">AUPP, Phnom Penh, Cambodia</a></p>
+                </div>
+            </div>
+
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <p>© 2024 Skin Apsor™. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSidebar() {
+            document.querySelector('.side-bar').style.display = 'flex';
+        }
+
+        function hideSidebar() {
+            document.querySelector('.side-bar').style.display = 'none';
+        }
+    </script>
+
+</body>
+
+</html> 
