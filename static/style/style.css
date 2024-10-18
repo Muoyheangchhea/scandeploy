@@ -822,7 +822,6 @@ header {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
 }
 
 /* Container that holds the product cards */
@@ -892,9 +891,10 @@ header {
 
 /* Rating styling */
 .rating {
-    font-size: 14px;
+    font-size: 5px;
     color: #ffaa00;
 }
+
 @media screen and (max-width: 1024px) {
     .products-container {
         grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
@@ -1395,7 +1395,7 @@ h2 {
 }
 
 .rating {
-    font-size: 1.5rem;
+    font-size: 17px;
     color: #3498DB;
 }
 

@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
         /* General Styles */
         html, body {
             margin: 0;
@@ -25,51 +29,55 @@
             align-items: center;
         }
 
-        /* Header Styles */
-        header {
-            background-color: #ffffff;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
+            /* Header Styles */
+            header {
+                background-color: #ffffff;
+                width: 102%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                position: fixed;
+                top: 0;
+                z-index: 1000;
+                height: 75px;
+                margin-right: 20px;
+            }
 
         .logo {
+            margin-top: 5px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-left: 40px;
         }
 
         .logo-image {
-            height: 40px;
-            margin-left: 20px;
-           
+            height: 50px;
+            margin-right: 10px;
         }
 
         .logo-text {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 20px;
             color: #333;
+            font-weight: 525;
         }
 
         .navigation a,
         .btnLogin-popup {
             text-decoration: none;
-            margin-left: 15px;
+            margin-left: 25px;
             color: #007bff;
-            font-weight: 500;
-            margin-right: 20px;
+            font-weight: 400;
+            margin-right: 40px;
         }
 
         .menu-icon {
             display: none;
-            margin-right: 10px;
+            cursor: pointer;
         }
 
+        /* Sidebar styles */
         .side-bar {
             display: none;
             flex-direction: column;
@@ -77,11 +85,18 @@
             top: 0;
             left: 0;
             width: 70%;
-            height: 100%;
-            background-color: #fff;
+            max-width: 400px;
+            height: 100vh;
+            background-color: white;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
             padding: 20px;
             z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .side-bar h2 {
+            margin-bottom: 20px;
+            color: #007bff;
         }
 
         .side-bar a {
@@ -97,10 +112,15 @@
 
         /* Main Container */
         .main-content {
-            margin-top: 80px; /* Push content below the header */
+            margin-top: 150px; /* Push content below the header */
             width: 100%;
             max-width: 500px;
             text-align: center;
+
+        }
+        .text{
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .background {
@@ -138,7 +158,7 @@
         .start-button {
             background-color: #007bff;
             color: white;
-            padding: 15px 30px;
+            padding: 10px 25px;
             border: none;
             border-radius: 25px;
             font-size: 18px;
@@ -152,6 +172,10 @@
         }
         .main-content h1 {
             color: #0056b3;
+            font-size: 24px;
+        }
+        .main-content h1 div h2 p{
+            padding: 0 50px;
         }
 
         @media (max-width: 768px) {
@@ -168,6 +192,15 @@
                 width: 50px;
                 height: 50px;
                 font-size: 20px;
+            }
+            .text{
+                font-size: 14px;
+            }
+            .main-content p{
+                font-size: 12px;
+            }
+            .main-content h1 h2 div p {
+                padding: 20px;
             }
         }
     </style>
@@ -209,27 +242,28 @@
     </header>
 
     <div class="main-content">
-        <h1>Welcome to Skin Apsor Advisor</h1>
+        <h1 class="texth">Welcome to Skin Apsor Advisor</h1>
 
         <div class="step">
             <div class="step-number">1</div>
-            <h2>TELL US ABOUT YOUR SKIN</h2>
+            <h2 class="text">TELL US ABOUT YOUR SKIN</h2>
             <p>Answer a few questions about your skin concerns and product preferences so we can tailor the products for you.</p>
         </div>
 
         <div class="step">
             <div class="step-number">2</div>
-            <h2>SNAP YOUR FACE</h2>
+            <h2 class = "text">SNAP YOUR FACE</h2>
             <p>If you are ready for your best skin day, use our AI technology to analyze your facial skin from just one selfie.</p>
         </div>
 
         <div class="step">
             <div class="step-number">3</div>
-            <h2>GET YOUR RESULTS</h2>
-            <p>In just a few seconds, you will see your skin analysis and recommended products that suit you.</p>
+            <h2 class="text">GET YOUR RESULTS</h2>
+            <p>In just a few seconds, 
+            you will see your skin analysis and recommended products that suit you.</p>
         </div>
 
-        <button class="start-button" onclick="window.location.href='/survey1'">START NOW</button>
+        <button class="start-button" onclick="window.location.href='/survey1'">Start Now!</button>
 
     </div>
 

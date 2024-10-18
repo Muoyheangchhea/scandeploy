@@ -13,6 +13,12 @@
             padding: 0;
             box-sizing: border-box;
         }
+        .condition-title{
+            font-weight: 600;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
         html, body {
             width: 100%;
@@ -118,7 +124,7 @@
         }
 
         .review-content {
-            margin-top: 170px;
+            margin-top: 100px;
             text-align: center;
             padding: 20px;
         }
@@ -148,8 +154,9 @@
         }
 
         .predictions-container, .recommendations-container {
+            margin: 0 10px;
             text-align: left;
-            margin: 20px;
+            margin-top: 30px;
         }
 
         .recommendations-container ul {
@@ -197,6 +204,10 @@
             .review-content {
                 margin-top: 100px;
                 padding: 15px;
+            }
+            .review-content h1{
+                font-weight: bold;
+
             }
 
             .btn {
@@ -313,21 +324,19 @@
     <main>
         <section class="review-section">
             <div class="review-content">
-                <h1>Analysis</h1>
-                <p>This is your skin problems analyzed by our machine learning model based on survey data.</p>
+                <h1>Skin Apsor Analysis Result</h1>
+                <p>This is your skin problems analyzed by our machine learning model and recommended products based on your skin concerns and survey preference result.</p>
                 
                 <!-- Display the annotated image -->
                 <img src="{{ annotated_image }}" alt="Annotated Image" id="capturedPhoto" />
     
-                <h2>Result</h2>
-    
                 <!-- Display predictions -->
                 <div class="predictions-container">
-                    <h2 class="condition-title">Predictions:</h2>
+                    <h2 class="condition-title">Skin Result:</h2>
                     {% if classes %}
                         <ul>
                             {% for class in classes %}
-                                <li>{{ class }}</li>
+                                <ul>{{ class }}</ul>
                             {% endfor %}
                         </ul>
                     {% else %}
@@ -337,7 +346,7 @@
     
                 <!-- Display recommendations -->
                 <div class="recommendations-container">
-                    <h2 class="condition-title">Recommendations:</h2>
+                    <h2 class="condition-title">Product Recommendations:</h2>
                     {% if recommendations %}
                         <ul>
                             {% for recommendation in recommendations %}
@@ -348,11 +357,11 @@
                                             <li class="recommendation-item">
                                                 <img src="{{ url_for('static', filename=product['Img']) }}" alt="{{ product['Name'] }} Image">
                                                 <div>
-                                                    <p><strong>Name:</strong> {{ product.Name }}</p>
+                                                    <p><strong>Product Name:</strong> {{ product.Name }}</p>
                                                     <p><strong>Brand:</strong> {{ product.Brand }}</p>
                                                     <p><strong>Price:</strong> {{ product.Price }} $</p>
-                                                    <p><strong>Rank:</strong>  {{ product.Rank }}/5 <!-- Example Rank --></p>
-                                                    <p><strong>Ingredients:</strong> {{ product.Ingredients }}</p>
+                                                    <p><strong>Rating:</strong>  {{ product.Rank }}/5 <!-- Example Rank --></p>
+                                                    <p><strong>Main Ingredients:</strong> {{ product.Ingredients }}</p>
                                                 </div>
                                             </li>
                                         {% endfor %}
@@ -367,7 +376,7 @@
     
                 <div class="navigation-buttons">
                     <a href="/camera" class="btn go-back-btn">Go Back</a>
-                    <a href="/allproduct" class="btn go-back-btn">Next</a>
+                    <a href="/allproduct" class="btn go-back-btn">See all Products</a>
                 </div>
             </div>
         </section>

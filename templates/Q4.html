@@ -339,8 +339,9 @@
                     <span>Very Sensitive</span>
                     <span>Quite Sensitive</span>
                     <span>Not Sensitive</span>
+                    <span>Don't Know</span>
                 </div>
-                <input type="range" id="sensitivitySlider" min="0" max="2" value="1">
+                <input type="range" id="sensitivitySlider" min="0" max="3" value="1">
                 <div class="slider-value" id="sensitivityValue">Quite Sensitive</div>
             </div>
 
@@ -364,7 +365,7 @@
             // Slider handling for sensitivity
             const sensitivitySlider = document.getElementById('sensitivitySlider');
             const sensitivityValue = document.getElementById('sensitivityValue');
-            const sensitivityLabels = ['Very Sensitive', 'Quite Sensitive', 'Not Sensitive'];
+            const sensitivityLabels = ['Very Sensitive', 'Quite Sensitive', 'Not Sensitive', "Don't Know"];
 
             sensitivitySlider.oninput = function () {
                 sensitivityValue.innerHTML = sensitivityLabels[this.value];
@@ -374,7 +375,7 @@
             const nextBtn = document.getElementById('nextBtn');
             nextBtn.addEventListener('click', function () {
                 // Here you can save the slider values or redirect to the next question
-                window.location.href = '/camera';
+                window.location.href = '/instruction';
             });
         </script>
     </main>
